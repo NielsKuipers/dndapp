@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../../../views/spells.dart';
 
 class NavigateToSpells extends StatelessWidget {
@@ -6,13 +6,13 @@ class NavigateToSpells extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: Center(
-        child: CupertinoButton(
+    return Scaffold(
+      body: Center(
+        child: FilledButton.tonal(
           child: const Text('Spells'),
           onPressed: () => Navigator.push(
             context,
-            CupertinoPageRoute(
+            MaterialPageRoute(
               builder: (context) => const Spells(),
             ),
           ),

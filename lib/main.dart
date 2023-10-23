@@ -1,9 +1,9 @@
-import 'package:dndapp/widgets/navigation/navigationBar.dart';
+import 'package:dndapp/widgets/navigation/navigationTopBar.dart';
 import 'package:dndapp/widgets/navigation/routes/navigateToSpells.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const CupertinoApp(title: 'DndApp', home: DndApp()));
+  runApp(const MaterialApp(title: 'DndApp', home: DndApp()));
 }
 
 class DndApp extends StatelessWidget {
@@ -11,10 +11,14 @@ class DndApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      home: CupertinoPageScaffold(
-        navigationBar: NavigationBar(title: 'Home'),
-        child: NavigateToSpells(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      home: const Scaffold(
+        appBar: NavigationTopBar(title: 'Home'),
+        body: Center(
+          child: NavigateToSpells(),
+        ),
       ),
     );
   }
