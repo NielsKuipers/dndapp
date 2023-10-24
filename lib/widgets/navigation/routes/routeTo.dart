@@ -1,11 +1,15 @@
-import 'package:dndapp/widgets/navigation/routes/routeTypes.dart';
+import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:flutter/material.dart';
 
-Route routeTo(final Widget page, RouteType type) {
+void routeTo(final Widget page, TransitionType type, BuildContext context) {
+  Route route;
+
   switch (type) {
-    case RouteType.slideIn:
-      return slideIn(page);
+    case TransitionType.slideIn:
+      route = slideIn(page);
   }
+
+  Navigator.of(context).push(route);
 }
 
 Route slideIn(final Widget page) {
