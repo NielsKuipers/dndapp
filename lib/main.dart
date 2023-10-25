@@ -1,5 +1,4 @@
-import 'package:dndapp/widgets/navigation/navigationTopBar.dart';
-import 'package:dndapp/widgets/navigation/routes/navigateToSpells.dart';
+import 'package:dndapp/views/character.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,12 +13,7 @@ class DndApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(useMaterial3: true),
-      home: const Scaffold(
-        appBar: NavigationTopBar(title: 'Home'),
-        body: Center(
-          child: NavigateToSpells(),
-        ),
-      ),
+      home: const Scaffold(body: Character()),
     );
   }
 }
