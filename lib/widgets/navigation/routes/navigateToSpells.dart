@@ -1,7 +1,7 @@
 import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
 import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:flutter/material.dart';
-import '../../../views/spells.dart';
+import '../../../views/spellsView.dart';
 
 class NavigateToSpells extends StatelessWidget {
   const NavigateToSpells({super.key});
@@ -12,7 +12,7 @@ class NavigateToSpells extends StatelessWidget {
       body: Center(
         child: FilledButton.tonal(
           onPressed: () =>
-              routeTo(const Spells(), TransitionType.slideIn, context),
+              routeTo(const SpellsView(), TransitionType.slideIn, context),
           child: const Text('Spells'),
         ),
       ),

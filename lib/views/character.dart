@@ -1,4 +1,5 @@
-import 'package:dndapp/views/spells.dart';
+import 'package:dndapp/views/inventory.dart';
+import 'package:dndapp/views/spellsView.dart';
 import 'package:dndapp/views/stats.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class Character extends StatefulWidget {
 
 class _CharacterState extends State<Character> {
   int currentIndex = 0;
-  final views = [const Stats(), const Spells(), const Inventory()];
+  final views = [const Stats(), const SpellsView(), const Inventory()];
   final List<NavigationDestination> destionations = [
     const NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Stats'),
     const NavigationDestination(
