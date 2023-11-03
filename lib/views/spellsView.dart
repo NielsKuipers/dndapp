@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dndapp/widgets/spells/spell.dart';
+import 'package:dndapp/widgets/spells/spellList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -44,7 +45,7 @@ class _SpellsState extends State<SpellsView> {
               child: Text('lol'),
             )
           : Center(
-              child: Text('\$${spells[0].description}'),
+              child: SpellList(spells),
             ),
     );
   }
