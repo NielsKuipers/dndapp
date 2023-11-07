@@ -10,7 +10,7 @@ Spell _$SpellFromJson(Map<String, dynamic> json) => Spell(
       json['name'] as String,
       json['description'] as String,
       json['school'] as String,
-      json['level'] as int,
+      json['level'] as String,
       json['casting_time'] as String,
       json['range'] as String,
       json['components'] as String,

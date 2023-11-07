@@ -42,7 +42,7 @@ class _SpellsState extends State<SpellsView> {
     return Scaffold(
       body: isLoading
           ? const Center(
-              child: Text('lol'),
+              child: Text('Loading'),
             )
           : Center(
               child: SpellList(spells),

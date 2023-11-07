@@ -8,7 +8,7 @@ class Spell {
   String? upcast;
 
   String school;
-  int level;
+  String level;
   @JsonKey(name: 'casting_time')
   String castingTime;
   String range;
@@ -21,14 +21,6 @@ class Spell {
   Spell(this.name, this.description, this.school, this.level, this.castingTime,
       this.range, this.components, this.duration, this.spellLists,
       [this.upcast]);
-
-  String getName() {
-    return name;
-  }
-
-  int getLevel() {
-    return level;
-  }
 
   factory Spell.fromJson(Map<String, dynamic> json) => _$SpellFromJson(json);
 

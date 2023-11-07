@@ -1,27 +1,20 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+import 'dart:collection';
+
 import 'package:dndapp/widgets/spells/spell.dart';
 import 'package:flutter/material.dart';
 
-List<Item> spells = [];
-
-class Item {
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-
-  Item(
-      {required this.expandedValue,
-      required this.headerValue,
-      this.isExpanded = true});
-}
+late SplayTreeMap<String, List<Spell>> spells;
 
 class SpellList extends StatefulWidget {
   SpellList(List<Spell> spellData, {super.key}) {
-    for (Spell spell in spellData) {
-      String header = "Level ${spell.level}";
+    spells = SplayTreeMap<String, List<Spell>>();
 
-      if (!spells.any((item) => item.headerValue == header)) {
-        spells.add(Item(expandedValue: spell.name, headerValue: header));
-      }
+    for (Spell spell in spellData) {
+      if (spells.containsKey(spell.level))
+        spells[spell.level]?.add(spell);
+      else
+        spells[spell.level] = [spell];
     }
   }
 
@@ -32,29 +25,31 @@ class SpellList extends StatefulWidget {
 class _SpellListState extends State<SpellList> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: _buildPanel(),
-      ),
-    );
+    return Scaffold(body: listOfSpells());
   }
 
-  Widget _buildPanel() {
-    // Reverse list so spell level is ascending instead of descending
-    List<Item> spellsReversed = spells.reversed.toList();
+  Widget listOfSpells() {
+    final slivers = <SliverList>[
+      SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            String key = spells.keys.elementAt(index);
 
-    return ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() => spellsReversed[index].isExpanded =
-            !spellsReversed[index].isExpanded);
-      },
-      children: spellsReversed.map((Item item) {
-        return ExpansionPanel(
-            headerBuilder: (BuildContext context, bool isExpanded) =>
-                ListTile(title: Text(item.headerValue)),
-            body: ListTile(title: Text(item.expandedValue)),
-            isExpanded: item.isExpanded);
-      }).toList(),
+            return ExpansionTile(
+              title: Text(key),
+              children: [
+                for (var spell in spells[key]!)
+                  ListTile(title: Text(spell.name))
+              ],
+            );
+          },
+          childCount: spells.length,
+        ),
+      ),
+    ];
+
+    return CustomScrollView(
+      slivers: slivers,
     );
   }
 }
