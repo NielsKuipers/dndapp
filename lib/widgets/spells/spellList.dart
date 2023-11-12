@@ -1,7 +1,10 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 import 'dart:collection';
 
+import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
+import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:dndapp/widgets/spells/spell.dart';
+import 'package:dndapp/widgets/spells/views/spellDetail.dart';
 import 'package:flutter/material.dart';
 
 late SplayTreeMap<String, List<Spell>> spells;
@@ -39,7 +42,11 @@ class _SpellListState extends State<SpellList> {
               title: Text(key),
               children: [
                 for (var spell in spells[key]!)
-                  ListTile(title: Text(spell.name))
+                  ListTile(
+                    title: Text(spell.name),
+                    onTap: () => routeTo(
+                        SpellDetail(spell), TransitionType.slideIn, context),
+                  )
               ],
             );
           },

@@ -1,3 +1,4 @@
+import 'package:dndapp/theme.dart';
 import 'package:dndapp/views/character.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class DndApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(useMaterial3: true),
+      theme: getTheme(),
       home: const Scaffold(body: Character()),
     );
   }

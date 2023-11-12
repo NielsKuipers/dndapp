@@ -7,18 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
-// class Spells extends StatelessWidget {
-//   const Spells({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       appBar: NavigationTopBar(title: 'Spells'),
-//       body: Text('yo'),
-//     );
-//   }
-// }
-
 class SpellsView extends StatefulWidget {
   const SpellsView({super.key});
 
@@ -42,7 +30,7 @@ class _SpellsState extends State<SpellsView> {
     return Scaffold(
       body: isLoading
           ? const Center(
-              child: Text('Loading'),
+              child: Text('Loading...'),
             )
           : Center(
               child: SpellList(spells),

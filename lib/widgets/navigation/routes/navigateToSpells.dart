@@ -1,7 +1,7 @@
 import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
 import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:flutter/material.dart';
-import '../../../views/spellsView.dart';
+import '../../spells/views/spellsOverview.dart';
 
 class NavigateToSpells extends StatelessWidget {
   const NavigateToSpells({super.key});
