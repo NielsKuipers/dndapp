@@ -1,5 +1,5 @@
 import 'package:dndapp/theme.dart';
-import 'package:dndapp/views/character.dart';
+import 'package:dndapp/widgets/main/character.dart';
 import 'package:flutter/material.dart';
 
 void main() {

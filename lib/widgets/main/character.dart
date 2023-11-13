@@ -1,6 +1,6 @@
-import 'package:dndapp/views/inventory.dart';
+import 'package:dndapp/widgets/inventory/views/inventory.dart';
 import 'package:dndapp/widgets/spells/views/spellsOverview.dart';
-import 'package:dndapp/views/stats.dart';
+import 'package:dndapp/widgets/character/views/stats.dart';
 import 'package:flutter/material.dart';
 
 class Character extends StatefulWidget {

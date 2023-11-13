@@ -416,6 +416,7 @@
         "school": "Abjuration",
         "level": "2nd Level",
         "casting_time": "1 action",
+        "casting_time_extra": "(Which you take when you take acid, cold, fire, lightning, or thunder damage)",
         "range": "30 feet",
         "components": "V, S, M",
         "components_extra": "(a tiny strip of white cloth)",

@@ -36,18 +36,20 @@ class SpellDetail extends StatelessWidget {
     if (spell.castingTimeExtra != null && spell.componentExtra != null)
       compAsterix = '**';
 
-    String castingTime =
-        spell.castingTimeExtra == null ? 'Casting time' : 'Casting time*';
-    String components =
-        spell.componentExtra == null ? 'Components' : 'Components$compAsterix';
+    //check if there's extra info and add an asterix if so
+    String castingTime = spell.castingTimeExtra == null
+        ? spell.castingTime
+        : '${spell.castingTime} *';
+    String components = spell.componentExtra == null
+        ? spell.components
+        : '${spell.components} $compAsterix';
 
     return Container(
       margin: const EdgeInsets.only(top: 25),
       child: Column(children: [
-        buildStatRow(['Level', castingTime], [spell.level, spell.castingTime]),
+        buildStatRow(['Level', 'Casting time'], [spell.level, castingTime]),
         const SizedBox(height: 25),
-        buildStatRow(
-            ['Range/area', components], [spell.range, spell.components]),
+        buildStatRow(['Range/area', 'Components'], [spell.range, components]),
         const SizedBox(height: 25),
         buildStatRow(['Duration', 'School'], [spell.duration, spell.school]),
       ]),
@@ -124,18 +126,23 @@ class SpellDetail extends StatelessWidget {
         Column(children: [
           if (spell.castingTimeExtra != null)
             Row(children: [
-              Text(
-                '* - ${spell.castingTimeExtra ?? ''}',
-                style:
-                    const TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
+              Expanded(
+                child: Text(
+                  '* - ${spell.castingTimeExtra ?? ''}',
+                  style: const TextStyle(
+                      fontStyle: FontStyle.italic, fontSize: 14),
+                ),
               )
             ]),
           if (spell.componentExtra != null)
             Row(children: [
-              Text(
-                '$compAsterix - ${spell.componentExtra ?? ''}',
-                style:
-                    const TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
+              const SizedBox(height: 35),
+              Expanded(
+                child: Text(
+                  '$compAsterix - ${spell.componentExtra ?? ''}',
+                  style: const TextStyle(
+                      fontStyle: FontStyle.italic, fontSize: 14),
+                ),
               )
             ]),
         ])
@@ -144,14 +151,21 @@ class SpellDetail extends StatelessWidget {
   }
 
   Container buildClassBlock(List<String> classes) {
-    String classString = 'Classes: ';
+    String classString = 'Spell lists: ';
     for (var i = 0; i < classes.length; i++) {
-      classString += '${classes[i]}, ';
+      classString += classes[i];
+      if (i != (classes.length - 1)) classString += ', ';
     }
 
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30),
-      child: Row(children: [Text(classString)]),
+      margin: const EdgeInsets.only(top: 25, left: 30, right: 30),
+      child: Row(children: [
+        Flexible(
+            child: Text(
+          classString,
+          style: const TextStyle(fontSize: 12),
+        ))
+      ]),
     );
   }
 }
