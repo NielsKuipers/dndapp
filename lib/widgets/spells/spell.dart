@@ -22,9 +22,22 @@ class Spell {
   @JsonKey(name: 'spell_lists')
   List<String> spellLists;
 
-  Spell(this.name, this.description, this.school, this.level, this.castingTime,
-      this.range, this.components, this.duration, this.spellLists,
-      [this.upcast, this.componentExtra, this.castingTimeExtra]);
+  bool prepared;
+
+  Spell(
+      this.name,
+      this.description,
+      this.school,
+      this.level,
+      this.castingTime,
+      this.range,
+      this.components,
+      this.duration,
+      this.spellLists,
+      this.prepared,
+      [this.upcast,
+      this.componentExtra,
+      this.castingTimeExtra]);
 
   factory Spell.fromJson(Map<String, dynamic> json) => _$SpellFromJson(json);
 

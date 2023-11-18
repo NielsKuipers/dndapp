@@ -32,8 +32,11 @@ class _SpellsState extends State<SpellsView> {
           ? const Center(
               child: Text('Loading...'),
             )
-          : Center(
-              child: SpellList(spells),
+          : Container(
+              margin: const EdgeInsets.only(top: 25),
+              child: Center(
+                child: SpellList(spells),
+              ),
             ),
     );
   }

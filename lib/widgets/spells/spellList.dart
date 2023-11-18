@@ -1,5 +1,6 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
 import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
@@ -32,6 +33,12 @@ class _SpellListState extends State<SpellList> {
   }
 
   Widget listOfSpells() {
+    void prepareSpell(Spell spell) {
+      setState(() {
+        spell.prepared = !spell.prepared;
+      });
+    }
+
     final slivers = <SliverList>[
       SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -44,6 +51,17 @@ class _SpellListState extends State<SpellList> {
                 for (var spell in spells[key]!)
                   ListTile(
                     title: Text(spell.name),
+                    trailing: spell.prepared == false
+                        ? OutlinedButton(
+                            onPressed: () {
+                              prepareSpell(spell);
+                            },
+                            child: const Text('Prepare'))
+                        : FilledButton(
+                            onPressed: () {
+                              prepareSpell(spell);
+                            },
+                            child: const Text('Unprepare')),
                     onTap: () => routeTo(
                         SpellDetail(spell), TransitionType.slideIn, context),
                   )
