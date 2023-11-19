@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dndapp/widgets/spells/spell.dart';
-import 'package:dndapp/widgets/spells/spellList.dart';
+import 'package:dndapp/widgets/spells/views/addSpell.dart';
+import 'package:dndapp/widgets/spells/views/spellList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,17 +28,32 @@ class _SpellsState extends State<SpellsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isLoading
-          ? const Center(
-              child: Text('Loading...'),
-            )
-          : Container(
-              margin: const EdgeInsets.only(top: 25),
-              child: Center(
-                child: SpellList(spells),
-              ),
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          toolbarHeight: 0,
+          bottom: TabBar(
+            dividerColor: Theme.of(context).dividerColor,
+            indicatorColor: Theme.of(context).colorScheme.secondary,
+            labelColor: Colors.white,
+            // unselectedLabelColor: Theme.of(context).textTheme.,
+            tabs: const [
+              Tab(text: "Prepare spells"),
+              Tab(text: "Manage spells"),
+            ],
+          ),
+        ),
+        body: TabBarView(children: [
+          isLoading
+              ? const Center(
+                  child: Text('Loading...'),
+                )
+              : SpellList(spells),
+          const AddSpell(),
+        ]),
+      ),
     );
   }
 

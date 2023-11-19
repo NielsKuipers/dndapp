@@ -33,6 +33,18 @@ class _SpellListState extends State<SpellList> {
   }
 
   Widget listOfSpells() {
+    if (spells.isEmpty)
+      return Container(
+        alignment: Alignment.center,
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('No spells added yet.'),
+            Text('Go to manage spells to add some!')
+          ],
+        ),
+      );
+
     void prepareSpell(Spell spell) {
       setState(() {
         spell.prepared = !spell.prepared;
