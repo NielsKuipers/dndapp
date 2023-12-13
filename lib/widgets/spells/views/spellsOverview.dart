@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dndapp/widgets/spells/spell.dart';
-import 'package:dndapp/widgets/spells/views/addSpell.dart';
+import 'package:dndapp/widgets/spells/views/manageSpells.dart';
 import 'package:dndapp/widgets/spells/views/spellList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,7 +51,7 @@ class _SpellsState extends State<SpellsView> {
                   child: Text('Loading...'),
                 )
               : SpellList(spells),
-          const AddSpell(),
+          const ManageSpells(),
         ]),
       ),
     );
