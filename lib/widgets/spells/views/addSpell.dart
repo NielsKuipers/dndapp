@@ -9,6 +9,7 @@ class AddSpell extends StatefulWidget {
 }
 
 class _AddSpellState extends State<AddSpell> {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController schoolController = TextEditingController();
   List<String> componentChecked = [];
 
@@ -16,6 +17,7 @@ class _AddSpellState extends State<AddSpell> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Form(
+        key: formKey,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           child: ListView(
@@ -130,12 +132,12 @@ class _AddSpellState extends State<AddSpell> {
                     left: 9,
                     child: Container(
                       padding: const EdgeInsets.only(right: 4, left: 4),
-                      decoration: const BoxDecoration(color: Color(0xff353242)),
+                      decoration: const BoxDecoration(color: Color(0xff2B3542)),
                       child: const Text(
                         "Components",
                         style: TextStyle(
                             fontSize: 12,
-                            color: Color(0xffBCB0B9),
+                            color: Color(0xFFDFDFDF),
                             fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -164,6 +166,11 @@ class _AddSpellState extends State<AddSpell> {
                     border: OutlineInputBorder(),
                     labelText: "At higher levels"),
               ),
+              const Divider(
+                height: 25,
+                color: Colors.transparent,
+              ),
+              ElevatedButton(onPressed: () {}, child: const Text("Create"))
             ],
           ),
         ),

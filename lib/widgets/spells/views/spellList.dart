@@ -1,6 +1,5 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 import 'dart:collection';
-import 'dart:developer';
 
 import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
 import 'package:dndapp/widgets/navigation/routes/transitionType.dart';

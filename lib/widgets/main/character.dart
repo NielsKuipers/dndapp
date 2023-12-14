@@ -28,7 +28,6 @@ class _CharacterState extends State<Character> {
         destinations: destionations,
         onDestinationSelected: (index) => setState(() => currentIndex = index),
         selectedIndex: currentIndex,
-        indicatorColor: Colors.red,
       ),
     );
   }

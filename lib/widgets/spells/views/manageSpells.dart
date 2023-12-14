@@ -1,5 +1,3 @@
-import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
-import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:dndapp/widgets/spells/views/addSpell.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +11,7 @@ class ManageSpells extends StatelessWidget {
         Row(
           children: [
             const Text("Add a custom spell"),
-            FilledButton(
+            ElevatedButton(
               onPressed: () => showDialog(
                 context: context,
                 builder: (BuildContext context) =>
