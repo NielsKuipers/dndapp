@@ -16,6 +16,9 @@ ThemeData getTheme() {
       ),
       floatingLabelStyle: TextStyle(color: Color(0xFFDFDFDF)),
       labelStyle: TextStyle(color: Color(0xFFDFDFDF)),
+      errorStyle: TextStyle(color: Color(0xFFEC4C41)),
+      errorBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFEC4C41))),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Color(0xFF6C8096),

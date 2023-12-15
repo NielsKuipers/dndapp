@@ -1,3 +1,4 @@
+import 'package:dndapp/widgets/form/validators.dart';
 import 'package:dndapp/widgets/spells/schools.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class _AddSpellState extends State<AddSpell> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController schoolController = TextEditingController();
   List<String> componentChecked = [];
+  bool hasComponent = true;
+  bool schoolPicked = true;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,7 @@ class _AddSpellState extends State<AddSpell> {
               TextFormField(
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Name"),
+                validator: (value) => requiredField(value, "name"),
               ),
               const Divider(
                 height: 25,
@@ -40,6 +44,7 @@ class _AddSpellState extends State<AddSpell> {
                 maxLines: null,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Description"),
+                validator: (value) => requiredField(value, "description"),
               ),
               const Divider(
                 height: 25,
@@ -59,6 +64,7 @@ class _AddSpellState extends State<AddSpell> {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Level"),
+                validator: (value) => requiredField(value, "level"),
               ),
               const Divider(
                 height: 25,
@@ -67,6 +73,7 @@ class _AddSpellState extends State<AddSpell> {
               TextFormField(
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Casting time"),
+                validator: (value) => requiredField(value, "Casting time"),
               ),
               const Divider(
                 height: 25,
@@ -75,6 +82,7 @@ class _AddSpellState extends State<AddSpell> {
               TextFormField(
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Range"),
+                validator: (value) => requiredField(value, "range"),
               ),
               const Divider(
                 height: 25,
@@ -83,13 +91,17 @@ class _AddSpellState extends State<AddSpell> {
               TextFormField(
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: "Duration"),
+                validator: (value) => requiredField(value, "duration"),
               ),
               Stack(
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 25),
                     decoration: BoxDecoration(
-                        border: Border.all(color: const Color(0xffBCB0B9)),
+                        border: Border.all(
+                            color: hasComponent
+                                ? const Color(0xFFDFDFDF)
+                                : const Color(0xFFba3931)),
                         borderRadius: BorderRadius.circular(5)),
                     child: Column(children: [
                       CheckboxListTile(
@@ -144,6 +156,13 @@ class _AddSpellState extends State<AddSpell> {
                   ),
                 ],
               ),
+              if (!hasComponent)
+                Container(
+                    padding: const EdgeInsets.only(left: 15, top: 9),
+                    child: const Text(
+                      "Please select at least 1 component.",
+                      style: TextStyle(color: Color(0xFFEC4C41), fontSize: 12),
+                    )),
               const Divider(
                 height: 25,
                 color: Colors.transparent,
@@ -170,7 +189,17 @@ class _AddSpellState extends State<AddSpell> {
                 height: 25,
                 color: Colors.transparent,
               ),
-              ElevatedButton(onPressed: () {}, child: const Text("Create"))
+              ElevatedButton(
+                  onPressed: () {
+                    if (componentChecked.isEmpty)
+                      setState(() => hasComponent = false);
+                    else
+                      setState(() => hasComponent = true);
+
+                    if (!formKey.currentState!.validate() || !hasComponent)
+                      return;
+                  },
+                  child: const Text("Create"))
             ],
           ),
         ),
