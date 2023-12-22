@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:dndapp/widgets/form/validators.dart';
 import 'package:dndapp/widgets/spells/schools.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +13,8 @@ class AddSpell extends StatefulWidget {
 }
 
 class _AddSpellState extends State<AddSpell> {
+  Map<String, String> formData = {"components": ""};
   final formKey = GlobalKey<FormState>();
-  final TextEditingController schoolController = TextEditingController();
-  List<String> componentChecked = [];
   bool hasComponent = true;
   bool schoolPicked = true;
 
@@ -23,188 +25,229 @@ class _AddSpellState extends State<AddSpell> {
         key: formKey,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: ListView(
-            children: [
-              const Text('Custom spell', style: TextStyle(fontSize: 21)),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Name"),
-                validator: (value) => requiredField(value, "name"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Description"),
-                validator: (value) => requiredField(value, "description"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              DropdownMenu<MagicSchool>(
-                dropdownMenuEntries: getDropdownItems(MagicSchool.values),
-                controller: schoolController,
-                label: const Text("School"),
-                width: constraints.maxWidth - 30,
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Level"),
-                validator: (value) => requiredField(value, "level"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Casting time"),
-                validator: (value) => requiredField(value, "Casting time"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Range"),
-                validator: (value) => requiredField(value, "range"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: "Duration"),
-                validator: (value) => requiredField(value, "duration"),
-              ),
-              Stack(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 25),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: hasComponent
-                                ? const Color(0xFFDFDFDF)
-                                : const Color(0xFFba3931)),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(children: [
-                      CheckboxListTile(
-                        title: const Text('Verbal'),
-                        value: componentChecked.contains("V"),
-                        onChanged: (value) {
-                          setState(() {
-                            componentChecked.contains("V")
-                                ? componentChecked.remove("V")
-                                : componentChecked.add("V");
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: const Text('Somatic'),
-                        value: componentChecked.contains("S"),
-                        onChanged: (value) {
-                          setState(() {
-                            componentChecked.contains("S")
-                                ? componentChecked.remove("S")
-                                : componentChecked.add("S");
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: const Text('Material'),
-                        value: componentChecked.contains("M"),
-                        onChanged: (value) {
-                          setState(() {
-                            componentChecked.contains("M")
-                                ? componentChecked.remove("M")
-                                : componentChecked.add("M");
-                          });
-                        },
-                      ),
-                    ]),
-                  ),
-                  Positioned(
-                    top: 15,
-                    left: 9,
-                    child: Container(
-                      padding: const EdgeInsets.only(right: 4, left: 4),
-                      decoration: const BoxDecoration(color: Color(0xff2B3542)),
-                      child: const Text(
-                        "Components",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFFDFDFDF),
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              if (!hasComponent)
-                Container(
-                    padding: const EdgeInsets.only(left: 15, top: 9),
-                    child: const Text(
-                      "Please select at least 1 component.",
-                      style: TextStyle(color: Color(0xFFEC4C41), fontSize: 12),
-                    )),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              if (componentChecked.contains("M")) ...[
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text('Custom spell', style: TextStyle(fontSize: 21)),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
                 TextFormField(
+                  onSaved: (val) => formData['name'] = val!,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Material component"),
+                      border: OutlineInputBorder(), labelText: "Name"),
+                  validator: (value) => requiredField(value, "name"),
                 ),
                 const Divider(
                   height: 25,
                   color: Colors.transparent,
                 ),
-              ],
-              TextFormField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "At higher levels"),
-              ),
-              const Divider(
-                height: 25,
-                color: Colors.transparent,
-              ),
-              ElevatedButton(
+                TextFormField(
+                  onSaved: (val) => formData['description'] = val!,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Description"),
+                  validator: (value) => requiredField(value, "description"),
+                ),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                //wrapped the dropdown in a listener to unfocus the other inputs on tap cause flutter sucks
+                Listener(
+                  onPointerDown: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  child: DropdownMenu<MagicSchool>(
+                    inputDecorationTheme: InputDecorationTheme(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: schoolPicked
+                              ? const Color(0xFFDFDFDF)
+                              : const Color(0xFFba3931),
+                        ),
+                      ),
+                    ),
+                    onSelected: (val) => formData['school'] = val!.string,
+                    dropdownMenuEntries: getDropdownItems(MagicSchool.values),
+                    label: const Text("School"),
+                    width: constraints.maxWidth - 30,
+                  ),
+                ),
+                if (!schoolPicked) getErrorMessage("Please select a school."),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                TextFormField(
+                  onSaved: (val) => formData['level'] = val!,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Level"),
+                  validator: (value) => requiredField(value, "level"),
+                ),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                TextFormField(
+                  onSaved: (val) => formData['castingTime'] = val!,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Casting time"),
+                  validator: (value) => requiredField(value, "Casting time"),
+                ),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                TextFormField(
+                  onSaved: (val) => formData['range'] = val!,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Range"),
+                  validator: (value) => requiredField(value, "range"),
+                ),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                TextFormField(
+                  onSaved: (val) => formData['duration'] = val!,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Duration"),
+                  validator: (value) => requiredField(value, "duration"),
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 25),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: hasComponent
+                                  ? const Color(0xFFDFDFDF)
+                                  : const Color(0xFFba3931)),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(children: [
+                        CheckboxListTile(
+                          title: const Text('Verbal'),
+                          value: formData["components"]?.contains("V"),
+                          onChanged: (value) {
+                            setState(() {
+                              setCheckboxValue("V");
+                            });
+                          },
+                        ),
+                        CheckboxListTile(
+                          title: const Text('Somatic'),
+                          value: formData["components"]?.contains("S"),
+                          onChanged: (value) {
+                            setState(() {
+                              setCheckboxValue("S");
+                            });
+                          },
+                        ),
+                        CheckboxListTile(
+                          title: const Text('Material'),
+                          value: formData["components"]?.contains("M"),
+                          onChanged: (value) {
+                            setState(() {
+                              setCheckboxValue("M");
+                            });
+                          },
+                        ),
+                      ]),
+                    ),
+                    Positioned(
+                      top: 15,
+                      left: 9,
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 4, left: 4),
+                        decoration:
+                            const BoxDecoration(color: Color(0xff2B3542)),
+                        child: const Text(
+                          "Components",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFFDFDFDF),
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                if (!hasComponent)
+                  getErrorMessage("Please select at least 1 component."),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                if (formData["components"]!.contains("M")) ...[
+                  TextFormField(
+                    onSaved: (val) => formData['componentExtra'] = val!,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Material component"),
+                    validator: (value) =>
+                        requiredField(value, "material component"),
+                  ),
+                  const Divider(
+                    height: 25,
+                    color: Colors.transparent,
+                  ),
+                ],
+                TextFormField(
+                  // onSaved: (val) => formData['Name'] = val!,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "At higher levels"),
+                ),
+                const Divider(
+                  height: 25,
+                  color: Colors.transparent,
+                ),
+                ElevatedButton(
                   onPressed: () {
-                    if (componentChecked.isEmpty)
+                    if (formData["components"]!.isEmpty) {
                       setState(() => hasComponent = false);
-                    else
+                    } else {
                       setState(() => hasComponent = true);
+                    }
 
-                    if (!formKey.currentState!.validate() || !hasComponent)
-                      return;
+                    if (formData["school"] != null) {
+                      setState(() => schoolPicked = true);
+                    } else {
+                      setState(() => schoolPicked = false);
+                    }
+
+                    if (!formKey.currentState!.validate() ||
+                        formData["components"]!.isEmpty) return;
+
+                    formKey.currentState!.save();
+
+                    formData.forEach((key, value) {
+                      log(value);
+                    });
                   },
-                  child: const Text("Create"))
-            ],
+                  child: const Text("Create"),
+                )
+              ],
+            ),
           ),
         ),
       );
     });
+  }
+
+  // logic for checking and unchecking the checkboxes
+  void setCheckboxValue(String component) {
+    if (formData["components"]!.contains(component)) {
+      formData["components"] =
+          formData["components"]!.replaceFirst(component, "");
+    } else {
+      formData["components"] = formData["components"]! + component;
+    }
   }
 
   getDropdownItems(List<MagicSchool> items) {
