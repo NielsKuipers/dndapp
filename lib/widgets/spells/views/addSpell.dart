@@ -13,7 +13,7 @@ class AddSpell extends StatefulWidget {
 }
 
 class _AddSpellState extends State<AddSpell> {
-  Map<String, String> formData = {"components": ""};
+  Map<String, String> formData = {"components": " "};
   final formKey = GlobalKey<FormState>();
   bool hasComponent = true;
   bool schoolPicked = true;
@@ -196,7 +196,7 @@ class _AddSpellState extends State<AddSpell> {
                   ),
                 ],
                 TextFormField(
-                  // onSaved: (val) => formData['Name'] = val!,
+                  onSaved: (val) => formData['upcast'] = val!,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: const InputDecoration(
@@ -209,26 +209,13 @@ class _AddSpellState extends State<AddSpell> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (formData["components"]!.isEmpty) {
-                      setState(() => hasComponent = false);
-                    } else {
-                      setState(() => hasComponent = true);
+                    if (!validateForm()) {
+                      formKey.currentState!.save();
+
+                      formData.forEach((key, value) {
+                        log(value);
+                      });
                     }
-
-                    if (formData["school"] != null) {
-                      setState(() => schoolPicked = true);
-                    } else {
-                      setState(() => schoolPicked = false);
-                    }
-
-                    if (!formKey.currentState!.validate() ||
-                        formData["components"]!.isEmpty) return;
-
-                    formKey.currentState!.save();
-
-                    formData.forEach((key, value) {
-                      log(value);
-                    });
                   },
                   child: const Text("Create"),
                 )
@@ -238,6 +225,28 @@ class _AddSpellState extends State<AddSpell> {
         ),
       );
     });
+  }
+
+  bool validateForm() {
+    bool errors = false;
+    if (!formKey.currentState!.validate()) {
+      errors = true;
+    }
+
+    if (formData["components"]!.isEmpty) {
+      setState(() => hasComponent = false);
+      errors = true;
+    } else {
+      setState(() => hasComponent = true);
+    }
+
+    if (formData["school"] == null) {
+      setState(() => schoolPicked = false);
+    } else {
+      setState(() => schoolPicked = true);
+    }
+
+    return errors;
   }
 
   // logic for checking and unchecking the checkboxes
