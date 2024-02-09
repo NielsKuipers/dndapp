@@ -4,7 +4,7 @@ import 'dart:collection';
 import 'package:dndapp/widgets/navigation/routes/routeTo.dart';
 import 'package:dndapp/widgets/navigation/routes/transitionType.dart';
 import 'package:dndapp/widgets/spells/spell.dart';
-import 'package:dndapp/widgets/spells/views/spellDetail.dart';
+import 'package:dndapp/widgets/spells/views/spell_detail.dart';
 import 'package:flutter/material.dart';
 
 late SplayTreeMap<String, List<Spell>> spells;

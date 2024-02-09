@@ -1,5 +1,5 @@
 import 'package:dndapp/widgets/inventory/views/inventory.dart';
-import 'package:dndapp/widgets/spells/views/spellsOverview.dart';
+import 'package:dndapp/widgets/spells/views/spells_overview.dart';
 import 'package:dndapp/widgets/character/views/stats.dart';
 import 'package:flutter/material.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dndapp/widgets/spells/spell.dart';
-import 'package:dndapp/widgets/spells/views/manageSpells.dart';
-import 'package:dndapp/widgets/spells/views/spellList.dart';
+import 'package:dndapp/widgets/spells/views/manage_spells.dart';
+import 'package:dndapp/widgets/spells/views/spell_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';

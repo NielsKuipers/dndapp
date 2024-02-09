@@ -1,4 +1,4 @@
-import 'package:dndapp/widgets/spells/views/addSpell.dart';
+import 'package:dndapp/widgets/spells/views/add_spell.dart';
 import 'package:flutter/material.dart';
 
 class ManageSpells extends StatelessWidget {
