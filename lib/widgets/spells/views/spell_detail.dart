@@ -3,6 +3,7 @@
 import 'package:dndapp/widgets/spells/spell.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SpellDetail extends StatelessWidget {
   final Spell spell;
   late String compAsterix = '*';
