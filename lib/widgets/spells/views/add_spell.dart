@@ -185,20 +185,25 @@ class _AddSpellState extends State<AddSpell> {
                   height: 25,
                   color: Colors.transparent,
                 ),
-                if (formData["components"]!.contains("M")) ...[
-                  TextFormField(
-                    onSaved: (val) => formData['componentExtra'] = val!,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Material component"),
-                    validator: (value) =>
-                        requiredField(value, "material component"),
+                Visibility(
+                  visible: formData["components"]!.contains("M"),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        onSaved: (val) => formData['componentExtra'] = val!,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Material component"),
+                        validator: (value) =>
+                            requiredField(value, "material component"),
+                      ),
+                      const Divider(
+                        height: 25,
+                        color: Colors.transparent,
+                      ),
+                    ],
                   ),
-                  const Divider(
-                    height: 25,
-                    color: Colors.transparent,
-                  ),
-                ],
+                ),
                 TextFormField(
                   onSaved: (val) => formData['upcast'] = val!,
                   keyboardType: TextInputType.multiline,
