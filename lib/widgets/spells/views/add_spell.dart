@@ -12,7 +12,7 @@ class AddSpell extends StatefulWidget {
 }
 
 class _AddSpellState extends State<AddSpell> {
-  Map<String, String> formData = {"components": " "};
+  Map<String, String> formData = {"components": ""};
   final formKey = GlobalKey<FormState>();
   bool hasComponent = true;
   bool schoolPicked = true;
@@ -74,7 +74,10 @@ class _AddSpellState extends State<AddSpell> {
                     width: constraints.maxWidth - 30,
                   ),
                 ),
-                if (!schoolPicked) getErrorMessage("Please select a school."),
+                Visibility(
+                  visible: !schoolPicked,
+                  child: getErrorMessage("Please select a school."),
+                ),
                 const Divider(
                   height: 25,
                   color: Colors.transparent,
@@ -174,8 +177,10 @@ class _AddSpellState extends State<AddSpell> {
                     ),
                   ],
                 ),
-                if (!hasComponent)
-                  getErrorMessage("Please select at least 1 component."),
+                Visibility(
+                  visible: !hasComponent,
+                  child: getErrorMessage("Please select at least 1 component."),
+                ),
                 const Divider(
                   height: 25,
                   color: Colors.transparent,
@@ -241,6 +246,7 @@ class _AddSpellState extends State<AddSpell> {
 
     if (formData["school"] == null) {
       setState(() => schoolPicked = false);
+      errors = true;
     } else {
       setState(() => schoolPicked = true);
     }
