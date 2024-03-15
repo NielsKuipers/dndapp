@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:dndapp/widgets/form/validators.dart';
 import 'package:dndapp/widgets/spells/schools.dart';
+import 'package:dndapp/widgets/spells/spell.dart';
 import 'package:flutter/material.dart';
+import 'package:dndapp/widgets/spells/spell_dao.dart';
 
 class AddSpell extends StatefulWidget {
   const AddSpell({super.key});
@@ -12,6 +14,7 @@ class AddSpell extends StatefulWidget {
 }
 
 class _AddSpellState extends State<AddSpell> {
+  final spellDao = SpellDao();
   Map<String, String> formData = {"components": ""};
   final formKey = GlobalKey<FormState>();
   bool hasComponent = true;
@@ -221,9 +224,22 @@ class _AddSpellState extends State<AddSpell> {
                     if (!validateForm()) {
                       formKey.currentState!.save();
 
-                      formData.forEach((key, value) {
-                        log(value);
-                      });
+                      Spell spell = Spell(
+                          formData["name"]!,
+                          formData["description"]!,
+                          formData["school"]!,
+                          formData["level"]!,
+                          formData["castingTime"]!,
+                          formData["range"]!,
+                          formData["components"]!,
+                          formData["duration"]!,
+                          [""],
+                          true,
+                          formData['upcast'],
+                          formData['componentExtra'],
+                          );
+
+                      spellDao.save(spell);
                     }
                   },
                   child: const Text("Create"),

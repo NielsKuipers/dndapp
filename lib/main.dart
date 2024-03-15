@@ -1,5 +1,5 @@
 import 'package:dndapp/theme.dart';
-import 'package:dndapp/widgets/main/character.dart';
+import 'package:dndapp/widgets/character/views/character_sheet.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class DndApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
-      home: const Scaffold(body: Character()),
+      home: const Scaffold(body: CharacterSheet()),
     );
   }
 }
